@@ -4,12 +4,20 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @method static Builder|User query()
+ * @method static Builder|User cuties()
+ */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -44,4 +52,47 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * @return HasMany
+     */
+    public function followers(): HasMany
+    {
+        return $this->hasMany(Follower::class, 'user_id', 'id');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function following(): BelongsToMany
+    {
+        return $this->belongsToMany(Follower::class, 'following_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function media(): HasMany
+    {
+        return $this->hasMany(UserMedia::class, 'user_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function services(): HasMany
+    {
+        return $this->hasMany(Service::class, 'cutie_id');
+    }
+
+    /**
+     * @param Builder $query
+     * @return mixed
+     */
+    public function ScopeCuties(Builder $query): Builder
+    {
+        return $query->where('role', 'cutie');
+    }
+
+
 }

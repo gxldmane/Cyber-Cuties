@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class UserMediaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::cuties()->inRandomOrder()->first()->id,
+            'media_path' => $this->faker->imageUrl(640, 480),
         ];
     }
 }

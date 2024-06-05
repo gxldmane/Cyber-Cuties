@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('cutie_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->foreignId('rank_id')->constrained('ranks')->onDelete('cascade');
             $table->text('description');
             $table->string('image_path');
             $table->timestamps();

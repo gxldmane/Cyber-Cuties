@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Services\CategoryService;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
+use Symfony\Component\HttpFoundation\Response as Response;
 
 class CategoryController extends Controller
 {
@@ -16,11 +16,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        return response()->json([
-            'data' => $this->service->getAllCategories()
-        ],
-            ResponseAlias::HTTP_OK
-        );
+        return $this->service->getAllCategories();
     }
 
     public function show(int $id)
@@ -28,17 +24,9 @@ class CategoryController extends Controller
         $category = $this->service->getCategoryById($id);
 
         if (!$category) {
-            return response()->json([
-                'message' => 'Category not found'
-            ],
-                ResponseAlias::HTTP_NOT_FOUND
-            );
+            return response('Category not found', Response::HTTP_NOT_FOUND);
         }
 
-        return response()->json([
-            'data' => $category
-        ],
-            ResponseAlias::HTTP_OK
-        );
+        return $category;
     }
 }

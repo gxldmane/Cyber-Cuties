@@ -4,18 +4,19 @@ namespace App\Services;
 
 use App\Data\CategoryData;
 use App\Models\Category;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
+use Spatie\LaravelData\DataCollection;
 
 class CategoryService
 {
     public function getAllCategories()
     {
-        return CategoryData::collect(Category::all());
+        return CategoryData::collect(Category::all(), DataCollection::class)->wrap('data')
+            ->except('ranks');
     }
 
     public function getCategoryById(int $id)
     {
-        $category = Category::find($id);
+        $category = Category::with('ranks')->find($id);
         if (!$category) {
             return null;
         }

@@ -8,4 +8,8 @@ Route::prefix('v1')->group(function () {
         Route::get('categories', 'index');
         Route::get('categories/{id}', 'show');
     });
+
+    Route::controller(\App\Http\Controllers\api\v1\RankController::class)->group(function () {
+        Route::get('ranks/{id}', 'show');
+    });
 });

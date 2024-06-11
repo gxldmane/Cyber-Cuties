@@ -2,19 +2,19 @@
 
 namespace App\Services;
 
-use App\Data\RankData;
+use App\Http\Resources\RankResource;
 use App\Models\Rank;
 
 class RankService
 {
-    public function getRankById(int $id): ?RankData
+    public function getRankById(int $id)
     {
-        $rank = Rank::find($id);
+        $rank = Rank::with('category')->find($id);
 
         if (!$rank) {
             return null;
         }
 
-        return RankData::from($rank)->wrap('data');
+        return new RankResource($rank);
     }
 }

@@ -4,13 +4,13 @@ use App\Models\Category;
 
 it('get all categories', function () {
     Category::factory(10)->create();
-    $response = $this->getJson('/api/v1/categories');
-    $response->assertStatus(200);
+    $response = $this->get('/api/v1/categories');
+    $response->assertOk();
 });
 
 it('get category by id', function () {
 
-    $category = Category::factory(1)->create();
+    Category::factory()->create(['id' => 1, 'name' => 'Category 1']);
 
     $response = $this->getJson('/api/v1/categories/1');
 

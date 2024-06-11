@@ -48,18 +48,11 @@
       0 => 'Termwind\\Laravel\\TermwindServiceProvider',
     ),
   ),
-  'spatie/laravel-data' => 
+  'spatie/laravel-query-builder' => 
   array (
     'providers' => 
     array (
-      0 => 'Spatie\\LaravelData\\LaravelDataServiceProvider',
-    ),
-  ),
-  'spatie/php-structure-discoverer' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Spatie\\StructureDiscoverer\\StructureDiscovererServiceProvider',
+      0 => 'Spatie\\QueryBuilder\\QueryBuilderServiceProvider',
     ),
   ),
 );

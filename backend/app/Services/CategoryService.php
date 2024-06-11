@@ -2,16 +2,14 @@
 
 namespace App\Services;
 
-use App\Data\CategoryData;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
-use Spatie\LaravelData\DataCollection;
 
 class CategoryService
 {
     public function getAllCategories()
     {
-        return CategoryData::collect(Category::all(), DataCollection::class)->wrap('data')
-            ->except('ranks');
+        return CategoryResource::collection(Category::query());
     }
 
     public function getCategoryById(int $id)
@@ -20,6 +18,6 @@ class CategoryService
         if (!$category) {
             return null;
         }
-        return CategoryData::from($category);
+        return new CategoryResource($category);
     }
 }

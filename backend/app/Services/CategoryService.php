@@ -9,7 +9,7 @@ class CategoryService
 {
     public function getAllCategories()
     {
-        return CategoryResource::collection(Category::query());
+        return CategoryResource::collection(Category::all());
     }
 
     public function getCategoryById(int $id)

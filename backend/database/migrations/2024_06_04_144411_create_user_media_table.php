@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_media', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->foreignId('user_id')->constrained();
             $table->string('media_path');
             $table->timestamps();

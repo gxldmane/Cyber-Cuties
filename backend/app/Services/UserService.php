@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Actions\AddAvatarAction;
+use App\Actions\AddCoverAction;
 use App\Http\Resources\User\UserProfileResource;
 use App\Http\Resources\User\CutieResource;
 use App\Models\User;
@@ -29,5 +31,4 @@ class UserService
 
         return null;
     }
-
 }

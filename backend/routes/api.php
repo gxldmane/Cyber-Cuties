@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\v1\AuthController;
 use App\Http\Controllers\api\v1\CategoryController;
+use App\Http\Controllers\api\v1\ProfileController;
 use App\Http\Controllers\api\v1\RankController;
 use App\Http\Controllers\api\v1\UserController;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,12 @@ Route::prefix('v1')->group(function () {
         Route::post('/register', 'register');
         Route::post('/login', 'login');
     });
+
+    Route::controller(ProfileController::class)->prefix('me')->middleware('auth:sanctum')->group(function () {
+        Route::get('/', 'show');
+        Route::patch('/', 'update');
+    });
+
 
     Route::controller(CategoryController::class)->prefix('categories')->group(function () {
         Route::get('/', 'index');

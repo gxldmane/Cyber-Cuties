@@ -3,7 +3,7 @@
 use App\Models\User;
 use function PHPUnit\Framework\assertEquals;
 
-it('Successfully register user', function () {
+it('successfully register user', function () {
     $response = $this->postJson('/api/v1/register', [
         'role' => 'user',
         'username' => 'test',
@@ -28,7 +28,7 @@ it('Successfully register user', function () {
 
 });
 
-it('Successfully register cutie', function () {
+it('successfully register cutie', function () {
     $response = $this->postJson('/api/v1/register', [
         'role' => 'cutie',
         'username' => 'test',
@@ -52,7 +52,7 @@ it('Successfully register cutie', function () {
     $response->assertStatus(201);
 });
 
-it('Incorrect data', function () {
+it('incorrect data', function () {
     $response = $this->postJson('/api/v1/register', [
         'role' => 'cutiew',
         'username' => 'test1234s',
@@ -67,7 +67,7 @@ it('Incorrect data', function () {
 
 });
 
-it('Email already exists', function () {
+it('email already exists', function () {
     User::factory()->create([
         'email' => 'jGZkA@example.com'
     ]);

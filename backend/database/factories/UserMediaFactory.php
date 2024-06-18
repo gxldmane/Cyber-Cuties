@@ -18,6 +18,7 @@ class UserMediaFactory extends Factory
     public function definition(): array
     {
         return [
+            'name' => $this->faker->name,
             'user_id' => User::cuties()->inRandomOrder()->first()->id,
             'media_path' => $this->faker->imageUrl(640, 480),
         ];

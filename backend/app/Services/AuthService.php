@@ -34,7 +34,7 @@ class AuthService
     {
         if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
             $user = Auth::user();
-            $token = $user->createToken(`${user['role']}_token`, [`${user['role']}`])->plainTextToken;
+            $token = $user->createToken($user['role'].'_token', [$user['role']])->plainTextToken;
 
             return [
                 'user' => new UserAuthResource($user),

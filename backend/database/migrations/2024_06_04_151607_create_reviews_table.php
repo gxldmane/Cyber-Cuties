@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('service_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users');
             $table->text('review');
+            $table->enum('type', ['positive', 'negative']);
             $table->unsignedBigInteger('rating');
             $table->timestamps();
         });

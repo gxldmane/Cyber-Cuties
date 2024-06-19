@@ -22,6 +22,7 @@ class ReviewFactory extends Factory
             'service_id' => Service::query()->inRandomOrder()->first()->id,
             'user_id' => User::query()->inRandomOrder()->first()->id,
             'review' => fake()->text(50),
+            'type' => fake()->randomElement(['positive', 'negative']),
             'rating' => fake()->numberBetween(1, 5),
         ];
     }

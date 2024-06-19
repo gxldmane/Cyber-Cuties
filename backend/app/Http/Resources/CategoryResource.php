@@ -17,7 +17,7 @@ class CategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'coverPath' => $this->cover_path,
+            'cover_path' => $this->cover_path,
             'ranks' => RankResource::collection($this->whenLoaded('ranks'))
         ];
     }

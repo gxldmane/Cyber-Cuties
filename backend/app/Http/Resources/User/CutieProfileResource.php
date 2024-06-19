@@ -19,10 +19,10 @@ class CutieProfileResource extends JsonResource
             'role' => $this->role,
             'username' => $this->username,
             'gender' => $this->gender,
-            'birthData' => $this->birth_date,
+            'birth_data' => $this->birth_date,
             'bio' => $this->bio,
-            'avatarPath' => $this->avatar_path,
-            'coverPath' => $this->cover_path,
+            'avatar_path' => $this->avatar_path,
+            'cover_path' => $this->cover_path,
             'email' => $this->email,
             'services' => $this->services,
             'media' => $this->media

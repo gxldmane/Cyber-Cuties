@@ -17,7 +17,7 @@ class RankResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'categoryId' => $this->category_id,
+            'category_id' => $this->category_id,
             'category' => new CategoryResource($this->whenLoaded('category')),
         ];
     }

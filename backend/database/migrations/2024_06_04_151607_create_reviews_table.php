@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->text('review');
             $table->unsignedBigInteger('rating');
-            $table->string('image_path');
             $table->timestamps();
         });
     }

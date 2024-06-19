@@ -17,11 +17,11 @@ class ServiceResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'cutie_id' => $this->cutie_id,
+            'cutieId' => $this->cutie_id,
             'description' => $this->description,
-            'category_id' => $this->category_id,
+            'categoryId' => $this->category_id,
             'category' => new CategoryResource($this->whenLoaded('category')),
-            'image_path' => $this->image_path,
+            'imagePath' => $this->image_path,
 
         ];
     }

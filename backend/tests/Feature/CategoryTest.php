@@ -2,6 +2,13 @@
 
 use App\Models\Category;
 
+
+
+beforeEach(function (){
+   $this->withoutMiddleware();
+   $this->withHeader('Accept', 'application/json');
+});
+
 it('get all categories', function () {
     Category::factory(10)->create();
     $response = $this->get('/api/v1/categories');

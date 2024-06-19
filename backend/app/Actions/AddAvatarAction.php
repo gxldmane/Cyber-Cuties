@@ -11,6 +11,11 @@ class AddAvatarAction
     {
         $path = Storage::disk()->put('users/avatars', $avatar);
         $path = Storage::url($path);
+
+        if ($user->avatar_path) {
+            Storage::delete($user->avatar_path);
+        }
+
         $user->update([
             'avatar_path' => $path
         ]);

@@ -3,6 +3,12 @@
 use App\Models\Category;
 use App\Models\Rank;
 
+beforeEach(function (){
+   $this->withoutMiddleware();
+   $this->withHeader('Accept', 'application/json');
+});
+
+
 it ('get rank by id', function () {
     Category::factory(1)->create();
 

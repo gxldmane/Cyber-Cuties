@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('cutie_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->text('description');
-            $table->string('image_path');
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }

@@ -12,6 +12,11 @@ class AddCoverAction
     {
         $path = Storage::disk()->put('users/covers', $cover);
         $path = Storage::url($path);
+
+        if ($user->cover_path) {
+            Storage::delete($user->cover_path);
+        }
+
         $user->update([
             'cover_path' => $path
         ]);

@@ -3,6 +3,11 @@
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 
+beforeEach(function (){
+   $this->withHeader('Accept', 'application/json');
+});
+
+
 it('successfully gets profile', function () {
     $user = User::factory()->create();
     $response = $this->actingAs($user)->get('api/v1/me');
@@ -39,12 +44,12 @@ it('update profile without login', function () {
 
 it('update profile wit incorrect data', function () {
     $user = User::factory()->create();
-    $response = $this->actingAs($user)->patch('api/v1/me', [
+    $response = $this->withHeader('Accept', 'application/json')->actingAs($user)->patch('api/v1/me', [
         'password' => 'ne',
         'password_confirmation' => 'new'
     ]);
 
-    $response->assertStatus(302);
+    $response->assertStatus(422);
 });
 
 

@@ -3,6 +3,12 @@
 use App\Models\User;
 use function PHPUnit\Framework\assertEquals;
 
+beforeEach(function (){
+   $this->withHeader('Accept', 'application/json');
+});
+
+
+
 it('successfully register user', function () {
     $response = $this->postJson('/api/v1/register', [
         'role' => 'user',

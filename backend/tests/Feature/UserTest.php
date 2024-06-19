@@ -2,6 +2,12 @@
 
 use App\Models\User;
 
+beforeEach(function (){
+   $this->withoutMiddleware();
+   $this->withHeader('Accept', 'application/json');
+});
+
+
 it('get all cuties', function () {
 
     User::factory(10)->create();

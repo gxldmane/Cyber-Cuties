@@ -2,6 +2,12 @@
 
 use App\Models\User;
 
+beforeEach(function (){
+   $this->withHeader('Accept', 'application/json');
+});
+
+
+
 it('successfully logs in', function () {
     $user = User::factory()->create();
 

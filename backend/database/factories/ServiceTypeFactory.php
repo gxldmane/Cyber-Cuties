@@ -6,9 +6,9 @@ use App\Models\Service;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ServiceTypes>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ServiceType>
  */
-class ServiceTypesFactory extends Factory
+class ServiceTypeFactory extends Factory
 {
     /**
      * Define the model's default state.

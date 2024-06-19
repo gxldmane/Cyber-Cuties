@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\Service;
+use App\Models\ServiceType;
 use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -55,6 +56,22 @@ it('cant create a service type: forbidden', function () {
     ]);
 
     $response->assertStatus(Response::HTTP_FORBIDDEN);
+});
+
+it('cant create a service type: max limit reached', function () {
+    $user = User::factory()->create(['role' => 'cutie']);
+    Category::factory()->create();
+    $service = Service::factory(1)->create(['cutie_id' => $user->id, 'id' => 1]);
+
+    ServiceType::factory(5)->create(['service_id' => $service[0]->id]);
+
+    $response = $this->actingAs($user)->postJson('/api/v1/services/1/types', [
+        'name' => 'test',
+        'price' => 100
+    ]);
+
+    $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+
 });
 
 

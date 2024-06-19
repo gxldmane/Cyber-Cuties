@@ -39,7 +39,7 @@ class Service extends Model
 
     public function types(): HasMany
     {
-        return $this->hasMany(ServiceTypes::class);
+        return $this->hasMany(ServiceType::class);
     }
 
 }

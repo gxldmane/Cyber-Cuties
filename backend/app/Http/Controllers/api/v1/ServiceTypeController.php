@@ -15,9 +15,13 @@ class ServiceTypeController extends Controller
     public function store(int $serviceId, StoreRequest $request)
     {
         $service = Service::query()->find($serviceId);
+
         $data = $request->validated();
 
         if ($service) {
+            if ($service->types()->count() > 4) {
+                return response('Too many service types', Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
             if ($service->cutie_id === Auth::user()->id) {
                 $serviceType = $service->types()->create($data);
                 return new ServiceTypeResource($serviceType);

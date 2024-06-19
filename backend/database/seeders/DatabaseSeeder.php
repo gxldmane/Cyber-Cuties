@@ -7,7 +7,7 @@ use App\Models\Follower;
 use App\Models\Rank;
 use App\Models\Review;
 use App\Models\Service;
-use App\Models\ServiceTypes;
+use App\Models\ServiceType;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         User::factory(100)->create();
         UserMedia::factory(250)->create();
         Service::factory(100)->create();
-        ServiceTypes::factory(200)->create();
+        ServiceType::factory(200)->create();
         Follower::factory(250)->create();
         Review::factory(100)->create();
     }

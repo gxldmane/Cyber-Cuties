@@ -23,7 +23,6 @@ class ReviewFactory extends Factory
             'user_id' => User::query()->inRandomOrder()->first()->id,
             'review' => fake()->text(50),
             'rating' => fake()->numberBetween(1, 5),
-            'image_path' => fake()->imageUrl(),
         ];
     }
 }

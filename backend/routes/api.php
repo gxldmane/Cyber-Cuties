@@ -5,6 +5,7 @@ use App\Http\Controllers\api\v1\CategoryController;
 use App\Http\Controllers\api\v1\ProfileController;
 use App\Http\Controllers\api\v1\RankController;
 use App\Http\Controllers\api\v1\ServiceController;
+use App\Http\Controllers\api\v1\ServiceTypeController;
 use App\Http\Controllers\api\v1\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,11 @@ Route::prefix('v1')->group(function () {
             Route::delete('/{id}', 'destroy')->middleware('ability:cutie');
         });
 
+        Route::controller(ServiceTypeController::class)->prefix('services/{serviceId}/types')->group(function () {
+            Route::post('/', 'store')->middleware('ability:cutie');
+            Route::patch('/{id}', 'update')->middleware('ability:cutie');
+            Route::delete('/{id}', 'destroy')->middleware('ability:cutie');
+        });
 
         Route::controller(CategoryController::class)->prefix('categories')->group(function () {
             Route::get('/', 'index');

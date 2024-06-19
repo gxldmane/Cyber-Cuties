@@ -22,6 +22,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'service_id' => ['required', 'integer', 'exists:services,id'],
             'name' => ['sometimes', 'required', 'string', 'max:255'],
             'price' => ['sometimes', 'required', 'integer'],
             'duration' => ['sometimes', 'nullable', 'string', 'in:30,60,game'],

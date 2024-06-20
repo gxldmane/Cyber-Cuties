@@ -23,9 +23,9 @@ class CutieProfileResource extends JsonResource
             'bio' => $this->bio,
             'avatar_path' => $this->avatar_path,
             'cover_path' => $this->cover_path,
-            'email' => $this->email,
-            'services' => $this->services,
-            'media' => $this->media
+            'followers_count' => $this->followers->count(),
+            'following_count' => $this->following->count(),
+            'avg_rating' => $this->avg_rating,
         ];
     }
 }

@@ -3,8 +3,8 @@
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 
-beforeEach(function (){
-   $this->withHeader('Accept', 'application/json');
+beforeEach(function () {
+    $this->withHeader('Accept', 'application/json');
 });
 
 
@@ -17,12 +17,13 @@ it('successfully gets profile', function () {
             'id',
             'role',
             'username',
+            'email',
+            'password',
             'gender',
             'birth_data',
             'bio',
             'avatar_path',
             'cover_path',
-            'email'
         ]
     ]);
 });
@@ -53,7 +54,6 @@ it('update profile wit incorrect data', function () {
 });
 
 
-
 it('update profile without loading files', function () {
     $user = User::factory()->create();
     $response = $this->actingAs($user)->patch('api/v1/me', [
@@ -66,12 +66,13 @@ it('update profile without loading files', function () {
             'id',
             'role',
             'username',
+            'email',
+            'password',
             'gender',
             'birth_data',
             'bio',
             'avatar_path',
             'cover_path',
-            'email'
         ]
     ]);
 });
@@ -90,12 +91,13 @@ it('update profile with loading files', function () {
             'id',
             'role',
             'username',
+            'email',
+            'password',
             'gender',
             'birth_data',
             'bio',
             'avatar_path',
             'cover_path',
-            'email'
         ]
     ]);
 });

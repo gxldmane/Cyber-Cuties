@@ -2,8 +2,7 @@
 
 namespace App\Services;
 
-use App\Actions\AddAvatarAction;
-use App\Actions\AddCoverAction;
+use App\Http\Resources\User\CutieProfileResource;
 use App\Http\Resources\User\UserProfileResource;
 use App\Http\Resources\User\CutieResource;
 use App\Models\User;
@@ -16,6 +15,7 @@ class UserService
     {
         $cuties = QueryBuilder::for(User::cuties())
             ->allowedFilters(['gender'])
+            ->defaultSort('-created_at')
             ->paginate();
 
         return CutieResource::collection($cuties);
@@ -25,8 +25,10 @@ class UserService
     {
         $user = User::query()->find($id);
 
+
+
         if ($user) {
-            return new UserProfileResource($user);
+            return new CutieProfileResource($user);
         }
 
         return null;

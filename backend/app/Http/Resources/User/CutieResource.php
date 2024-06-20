@@ -20,6 +20,7 @@ class CutieResource extends JsonResource
             'username' => $this->username,
             'gender' => $this->gender,
             'avatar_path' => $this->avatar_path,
+            'avg_rating' => $this->avg_rating,
         ];
     }
 }

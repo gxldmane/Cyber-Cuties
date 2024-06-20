@@ -64,15 +64,15 @@ class User extends Authenticatable
      */
     public function followers(): HasMany
     {
-        return $this->hasMany(Follower::class, 'user_id', 'id');
+        return $this->hasMany(Follower::class, 'following_id', 'id');
     }
 
     /**
-     * @return BelongsToMany
+     * @return HasMany
      */
-    public function following(): BelongsToMany
+    public function following(): HasMany
     {
-        return $this->belongsToMany(Follower::class, 'following_id', 'id');
+        return $this->HasMany(Follower::class, 'user_id', 'id');
     }
 
     /**
@@ -99,5 +99,4 @@ class User extends Authenticatable
     {
         return $query->where('role', 'cutie');
     }
-
 }

@@ -18,12 +18,13 @@ class UserProfileResource extends JsonResource
             'id' => $this->id,
             'role' => $this->role,
             'username' => $this->username,
+            'email' => $this->email,
+            'password' => $this->password,
             'gender' => $this->gender,
             'birth_data' => $this->birth_date,
             'bio' => $this->bio,
             'avatar_path' => $this->avatar_path,
             'cover_path' => $this->cover_path,
-            'email' => $this->email,
         ];
     }
 }

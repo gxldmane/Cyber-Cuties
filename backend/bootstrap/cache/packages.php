@@ -1,11 +1,4 @@
 <?php return array (
-  'dedoc/scramble' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Dedoc\\Scramble\\ScrambleServiceProvider',
-    ),
-  ),
   'laravel/sail' => 
   array (
     'providers' => 

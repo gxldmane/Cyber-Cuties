@@ -55,4 +55,9 @@ class Service extends Model
         })->exists();
     }
 
+    public function ScopeAvgRating()
+    {
+        return $this->reviews()->avg('rating');
+    }
+
 }

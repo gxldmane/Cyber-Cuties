@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\v1\AuthController;
 use App\Http\Controllers\api\v1\CategoryController;
+use App\Http\Controllers\api\v1\FollowerController;
 use App\Http\Controllers\api\v1\ProfileController;
 use App\Http\Controllers\api\v1\RankController;
 use App\Http\Controllers\api\v1\ReviewController;
@@ -21,6 +22,7 @@ Route::prefix('v1')->group(function () {
         Route::controller(ProfileController::class)->prefix('me')->group(function () {
             Route::get('/', 'show');
             Route::patch('/', 'update');
+            Route::delete('/', 'destroy');
         });
 
         Route::controller(ServiceController::class)->prefix('services')->group(function () {
@@ -42,6 +44,12 @@ Route::prefix('v1')->group(function () {
             Route::patch('/{id}', 'update');
             Route::delete('/{id}', 'destroy');
         });
+
+        Route::controller(FollowerController::class)->prefix('followers')->group(function () {
+            Route::post('/{id}', 'followUser');
+            Route::delete('/{id}', 'unfollowUser');
+        });
+
 
         Route::controller(CategoryController::class)->prefix('categories')->group(function () {
             Route::get('/', 'index');

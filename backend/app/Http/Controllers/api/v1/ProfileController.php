@@ -37,4 +37,13 @@ class ProfileController extends Controller
 
     }
 
+    public function destroy()
+    {
+        $user = Auth::user();
+
+        $user->delete();
+
+        return response()->noContent();
+    }
+
 }

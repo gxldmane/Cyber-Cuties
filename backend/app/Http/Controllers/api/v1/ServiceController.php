@@ -24,7 +24,7 @@ class ServiceController extends Controller
 
     public function show(int $id)
     {
-        $service = Service::query()->find($id)->first();
+        $service = Service::query()->find($id);
 
         return new ServiceFullResource($service);
     }

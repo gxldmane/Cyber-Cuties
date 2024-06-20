@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Service;
 
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ServiceTypeResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,9 +20,9 @@ class ServiceFullResource extends JsonResource
             'id' => $this->id,
             'cutie_id' => $this->cutie_id,
             'description' => $this->description,
-            'category_id' => $this->category_id,
-            'category' => new CategoryResource($this->whenLoaded('category')),
             'image_path' => $this->image_path,
+            'category' => new CategoryResource($this->category),
+            'types' => ServiceTypeResource::collection($this->types),
         ];
     }
 }

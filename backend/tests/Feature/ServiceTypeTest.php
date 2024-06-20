@@ -16,8 +16,7 @@ it('can create a service type', function () {
     Category::factory()->create();
     $service = Service::factory()->create();
 
-    $response = $this->actingAs($user)->postJson('/api/v1/services/types', [
-        'service_id' => $service->id,
+    $response = $this->actingAs($user)->postJson('/api/v1/services/'.$service->id.'/types', [
         'name' => 'test',
         'price' => 100
     ]);
@@ -26,7 +25,6 @@ it('can create a service type', function () {
     $response->assertJsonStructure([
         'data' => [
             'id',
-            'service_id',
             'name',
             'price'
         ]
@@ -38,13 +36,12 @@ it('cant create a service type: service not found', function () {
     Category::factory()->create();
     $service = Service::factory()->create();
 
-    $response = $this->actingAs($user)->postJson('/api/v1/services/types', [
-        'service_id' => 2222,
+    $response = $this->actingAs($user)->postJson('/api/v1/services/22222/types', [
         'name' => 'test',
         'price' => 100
     ]);
 
-    $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    $response->assertStatus(Response::HTTP_NOT_FOUND);
 });
 
 it('cant create a service type: forbidden', function () {
@@ -53,8 +50,7 @@ it('cant create a service type: forbidden', function () {
     Category::factory()->create();
     $service = Service::factory()->create(['cutie_id' => 2, 'id' => 1]);
 
-    $response = $this->actingAs($user)->postJson('/api/v1/services/types', [
-        'service_id' => $service->id,
+    $response = $this->actingAs($user)->postJson('/api/v1/services/1/types', [
         'name' => 'test',
         'price' => 100
     ]);
@@ -69,8 +65,7 @@ it('cant create a service type: max limit reached', function () {
 
     ServiceType::factory(5)->create(['service_id' => $service[0]->id]);
 
-    $response = $this->actingAs($user)->postJson('/api/v1/services/types', [
-        'service_id' => $service[0]->id,
+    $response = $this->actingAs($user)->postJson('/api/v1/services/1/types', [
         'name' => 'test',
         'price' => 100
     ]);
@@ -85,13 +80,11 @@ it('can update a service type', function (){
     Category::factory()->create();
     $service = Service::factory()->create(['cutie_id' => $user->id]);
     $serviceType = $service->types()->create([
-        'service_id' => $service->id,
         'name' => 'test',
         'price' => 100
     ]);
 
-    $response = $this->actingAs($user)->patchJson('/api/v1/services/types/'.$serviceType->id, [
-        'service_id' => $service->id,
+    $response = $this->actingAs($user)->patchJson('/api/v1/services/'.$service->id.'/types/'.$serviceType->id, [
         'name' => 'test2',
         'price' => 200
     ]);
@@ -100,12 +93,30 @@ it('can update a service type', function (){
     $response->assertJsonStructure([
         'data' => [
             'id',
-            'service_id',
             'name',
             'price'
         ]
     ]);
 });
+
+
+it('cant update a service type: service not found', function () {
+    $user = User::factory()->create(['role' => 'cutie']);
+    Category::factory()->create();
+    $service = Service::factory()->create(['cutie_id' => $user->id]);
+    $serviceType = $service->types()->create([
+        'name' => 'test',
+        'price' => 100
+    ]);
+
+    $response = $this->actingAs($user)->patchJson('/api/v1/services/22222/types/'.$serviceType->id, [
+        'name' => 'test2',
+        'price' => 200
+    ]);
+
+    $response->assertStatus(Response::HTTP_NOT_FOUND);
+});
+
 
 it('cant update a service type: forbidden', function () {
     $user = User::factory()->create(['role' => 'cutie']);
@@ -113,13 +124,11 @@ it('cant update a service type: forbidden', function () {
     Category::factory()->create();
     $service = Service::factory()->create(['cutie_id' => 2, 'id' => 1]);
     $serviceType = $service->types()->create([
-        'service_id' => $service->id,
         'name' => 'test',
         'price' => 100
     ]);
 
-    $response = $this->actingAs($user)->patchJson('/api/v1/services/types/'.$serviceType->id, [
-        'service_id' => $service->id,
+    $response = $this->actingAs($user)->patchJson('/api/v1/services/1/types/'.$serviceType->id, [
         'name' => 'test2',
         'price' => 200
     ]);
@@ -133,14 +142,42 @@ it('can delete a service type', function (){
     Category::factory()->create();
     $service = Service::factory()->create(['cutie_id' => $user->id]);
     $serviceType = $service->types()->create([
-        'service_id' => $service->id,
         'name' => 'test',
         'price' => 100
     ]);
 
-    $response = $this->actingAs($user)->deleteJson('/api/v1/services/types/'.$serviceType->id);
+    $response = $this->actingAs($user)->deleteJson('/api/v1/services/'.$service->id.'/types/'.$serviceType->id);
 
     $response->assertStatus(Response::HTTP_NO_CONTENT);
+});
+
+
+it('cant delete a service type: service not found', function () {
+    $user = User::factory()->create(['role' => 'cutie']);
+    Category::factory()->create();
+    $service = Service::factory()->create(['cutie_id' => $user->id]);
+    $serviceType = $service->types()->create([
+        'name' => 'test',
+        'price' => 100
+    ]);
+
+    $response = $this->actingAs($user)->deleteJson('/api/v1/services/22222/types/'.$serviceType->id);
+
+    $response->assertStatus(Response::HTTP_NOT_FOUND);
+});
+
+it('cant delete a service type: service type not found', function () {
+    $user = User::factory()->create(['role' => 'cutie']);
+    Category::factory()->create();
+    $service = Service::factory()->create(['cutie_id' => $user->id]);
+    $serviceType = $service->types()->create([
+        'name' => 'test',
+        'price' => 100
+    ]);
+
+    $response = $this->actingAs($user)->deleteJson('/api/v1/services/'.$service->id.'/types/22222');
+
+    $response->assertStatus(Response::HTTP_NOT_FOUND);
 });
 
 it('cant delete a service type: forbidden ', function () {
@@ -149,12 +186,11 @@ it('cant delete a service type: forbidden ', function () {
     Category::factory()->create();
     $service = Service::factory()->create(['cutie_id' => 2, 'id' => 1]);
     $serviceType = $service->types()->create([
-        'service_id' => $service->id,
         'name' => 'test',
         'price' => 100
     ]);
 
-    $response = $this->actingAs($user)->deleteJson('/api/v1/services/types/'.$serviceType->id);
+    $response = $this->actingAs($user)->deleteJson('/api/v1/services/1/types/'.$serviceType->id);
 
     $response->assertStatus(Response::HTTP_FORBIDDEN);
 });

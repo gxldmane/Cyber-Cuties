@@ -22,7 +22,6 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'service_id' => ['required', 'integer', 'exists:services,id'],
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'integer'],
             'duration' => ['nullable', 'string', 'in:30,60,game'],

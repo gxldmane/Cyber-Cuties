@@ -18,6 +18,7 @@ class Review extends Model
         'user_id',
         'review',
         'rating',
+        'type'
     ];
 
     /**

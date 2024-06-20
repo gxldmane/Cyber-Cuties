@@ -4,6 +4,7 @@ use App\Http\Controllers\api\v1\AuthController;
 use App\Http\Controllers\api\v1\CategoryController;
 use App\Http\Controllers\api\v1\ProfileController;
 use App\Http\Controllers\api\v1\RankController;
+use App\Http\Controllers\api\v1\ReviewController;
 use App\Http\Controllers\api\v1\ServiceController;
 use App\Http\Controllers\api\v1\ServiceTypeController;
 use App\Http\Controllers\api\v1\UserController;
@@ -33,6 +34,13 @@ Route::prefix('v1')->group(function () {
             Route::post('/', 'store')->middleware('ability:cutie');
             Route::patch('/{id}', 'update')->middleware('ability:cutie');
             Route::delete('/{id}', 'destroy')->middleware('ability:cutie');
+        });
+
+        Route::controller(ReviewController::class)->prefix('services/{serviceId}/reviews')->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::patch('/{id}', 'update');
+            Route::delete('/{id}', 'destroy');
         });
 
         Route::controller(CategoryController::class)->prefix('categories')->group(function () {
